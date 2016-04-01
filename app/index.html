@@ -93,26 +93,36 @@
         </form>
     </div>
 
-    <div data-role="view" id="list" data-model="listView" data-title="Grocery List">
+    <div data-role="view" id="list" data-model="listView" data-title="Horse List">
         <div data-role="navbar">
             <a data-role="button" href="#login" data-align="left" data-bind="click: logout">Logout</a>
             <span data-role="view-title"></span>
             <a data-role="button" data-align="right" data-rel="modalview" href="#add">Add</a>
         </div>
-        <ul id="grocery-list"></ul>
+        <ul id="horse-list"></ul>
     </div>
 
     <div data-role="modalview" id="add" style="width: 90%" data-model="addView">
         <div data-role="header">
             <div data-role="navbar">
-                <span>Add Grocery</span>
+                <span>Add Horse</span>
             </div>
         </div>
 
         <ul data-role="listview" data-style="inset">
             <li>
                 <label>
-                    Grocery:<input type="text" data-bind="value: grocery">
+                    Name:<input type="text" data-bind="value: horse_name">
+                </label>
+            </li>
+            <li>
+                <label>
+                    Breed:<input type="text" data-bind="value: breed">
+                </label>
+            </li>
+            <li>
+                <label>
+                    Height:<input type="text" data-bind="value: height">
                 </label>
             </li>
         </ul>

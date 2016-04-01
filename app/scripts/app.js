@@ -1,13 +1,13 @@
 (function() {
-    var apiKey = "GWfRtXi1Lwt4jcqK"
+    var apiKey = "4qnex5t3hg2800dv"
     var el = new Everlive(apiKey);
 
     window.Users = el.Users;
 
-    var groceryDataSource = new kendo.data.DataSource({
+    var horseDataSource = new kendo.data.DataSource({
         type: "everlive",
         transport: {
-            typeName: "Groceries"
+            typeName: "Horses"
         }
     });
 
@@ -16,8 +16,8 @@
             skin: "nova",
             transition: "slide"
         });
-        $("#grocery-list").kendoMobileListView({
-            dataSource: groceryDataSource,
+        $("#horse-list").kendoMobileListView({
+            dataSource: horseDataSource,
             template: "#: Name #"
         });
     }
@@ -35,7 +35,7 @@
             el.Users.login(this.username, this.password,
                 function(data) {
                     window.location.href = "#list";
-                    groceryDataSource.read();
+                    horseDataSource.read();
                 }, function() {
                     navigator.notification.alert("Unfortunately we could not find your account.");
                 });
@@ -82,6 +82,7 @@
                     navigator.notification.alert("Unfortunately, an error occurred resetting your password.")
                 }
             });
+            this.set("email",'');
         }
     });
 
@@ -101,15 +102,20 @@
 
     window.addView = kendo.observable({
         add: function() {
-            if (this.grocery.trim() === "") {
-                navigator.notification.alert("Please provide a grocery.");
+            if (this.horse_name.trim() === "" || this.breed.trim() === "" || this.height.trim() === "") {
+                navigator.notification.alert("Please provide all fields.");
                 return;
             }
 
-            groceryDataSource.add({ Name: this.grocery });
-            groceryDataSource.one("sync", this.close);
-            groceryDataSource.sync();
-            this.set("grocery", "");
+            horseDataSource.add({ Name: this.horse_name, 
+                                Breed: this.breed, 
+                                Height: this.height});
+            horseDataSource.one("sync", this.close);
+            horseDataSource.sync();
+            this.set("horse_name", "");
+            this.set("breed", "");
+            this.set("height", "");
+            $("#add").data("kendoMobileModalView").close();
         },
         close: function() {
             $("#add").data("kendoMobileModalView").close();
